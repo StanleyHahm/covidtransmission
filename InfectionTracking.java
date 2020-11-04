@@ -51,9 +51,9 @@ public class InfectionTracking{
     if((locations != null) && (movements != null) && (worldSize > 0)
     && (locations.length == movements.length)){
       int approval_count = 0;
-      for(int i = 0; i < worldSize; i++){
+      for(int i = 0; i < locations.length; i++){
         if((locations[i] < 0) || (locations[i] >= worldSize)
-          || movements[i] == 0){  
+          || movements[i] == 0){
             break;
         }
         else{
@@ -61,7 +61,7 @@ public class InfectionTracking{
         }
       }
       if(approval_count == locations.length){
-        for(int j = 0; j < worldSize; j++){
+        for(int j = 0; j < locations.length; j++){
           locations[j] = (locations[j] + movements[j]) % worldSize;
           if(locations[j] < 0){
             locations[j] += worldSize;
@@ -138,9 +138,9 @@ public class InfectionTracking{
     */
 
     //**
-    int worldSize = 4;
-    int locations[] = {3, 2, 1, 0};
-    int movements[] = {0, 0, 0, 0};
+    int worldSize = 15;
+    int locations[] = {3, 2, 1, 0, 10, 12, 14, 9, 5};
+    int movements[] = {1, -1, 5, 7, -14, 9, 10, -2, 14};
     updateLocations(worldSize, locations, movements);
     //*/
 
