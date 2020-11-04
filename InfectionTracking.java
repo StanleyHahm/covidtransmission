@@ -63,7 +63,7 @@ public class InfectionTracking{
       if(approval_count == locations.length){
         for(int j = 0; j < locations.length; j++){
           locations[j] = (locations[j] + movements[j]) % worldSize;
-          if(locations[j] <= 0){
+          if(locations[j] < 0){
             locations[j] += worldSize;
           }
         }
