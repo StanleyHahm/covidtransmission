@@ -48,7 +48,8 @@ public class InfectionTracking{
 
   public static void updateLocations(int worldSize, int[] locations,
   int[] movements){
-    if((locations != null) && (movements != null) && (worldSize > 0)){
+    if((locations != null) && (movements != null) && (worldSize > 0)
+    && (locations.length == movements.length)){
       for(int i = 0; i < worldSize; i++){
         if((locations[i] >= 0) && (locations[i] <= worldSize - 1)){
           locations[i] = (locations[i] + movements[i]) % worldSize;
@@ -69,32 +70,17 @@ public class InfectionTracking{
     int[] numStudentsInfected = new int[infections.length];
     for(int i = 0; i < infections.length; i++){
       int infection_count = 0;
-      int infection_holder = 0;
-      int[] hold_j = new int[1];
 
       if (infections[i] == 1){
         for (int j = 0; j < locations.length; j++){
           if (locations[j] == locations[i] && infections[j] == 0){
             infections[j] = 1;
             infection_count++;
-            hold_j[infection_holder] = j;
-            infection_holder++;
+
           }
 
           else{
             continue;
-          }
-        }
-        if(infection_count > 0){
-          for(int m = 0; m < locations.length; m++){
-            for(int n = 0; n < locations.length; n++){
-              if((infections[m] == 1) && (n != hold_j[n])){
-                numStudentsInfected[m] = infection_count;
-              }
-              else{
-                continue;
-              }
-            }
           }
         }
       }
@@ -106,12 +92,13 @@ public class InfectionTracking{
     return numStudentsInfected;
   }
 
+
 /**
   public static int[] countInfectionsByStudent(int days, int worldSize,
   int[] locations, int[] movements, int[] infections){
 
   }
-  */
+*/
 
 
   public static void main(String[] args) throws IOException{
