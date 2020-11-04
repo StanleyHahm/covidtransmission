@@ -83,7 +83,7 @@ public class InfectionTracking{
       for(int i = 0; i < infections.length; i++){
         if((locations[i] < 0) || (locations[i] >= worldSize)
           || ((infections[i] != 0) && (infections[i] != 1))){
-            break;
+            return null;
         }
         else{
           approval_count++;
@@ -120,6 +120,9 @@ public class InfectionTracking{
           }
         }
       }
+    }
+    else{
+      return null;
     }
     return numStudentsInfected;
   }
