@@ -47,12 +47,12 @@ public class InfectionTracking{
   }
 
   public static void updateLocations(int worldSize, int[] locations,
-  int[] movements){
+  int[] movements) {
     if((locations != null) && (movements != null) && (worldSize > 0)
     && (locations.length == movements.length)){
       int approval_count = 0;
       for(int i = 0; i < worldSize; i++){
-        if((locations[i] < 0) || (locations[i] >= worldSize - 1)){
+        if((locations[i] < 0) || (locations[i] >= worldSize)){
           break;
         }
         else{
@@ -77,25 +77,41 @@ public class InfectionTracking{
 
     if((worldSize > 0) && (locations != null) && (infections != null)
       &&(locations.length == infections.length)){
+      int approval_count = 0;
+
       for(int i = 0; i < infections.length; i++){
-        int infection_count = 0;
-
-        if (infections[i] == 1){
-          for (int j = 0; j < locations.length; j++){
-            if (locations[j] == locations[i] && infections[j] == 0){
-              infections[j] = 1;
-              infection_count++;
-            }
-
-            else{
-              continue;
-            }
-          }
+        if((locations[i] < 0) || (locations[i] >= worldSize)
+          || ((infections[i] != 0) && (infections[i] != 1))){
+            System.out.println("did we get here");
+            break;
         }
         else{
-          continue;
+          System.out.println("what the heck");
+          approval_count++;
         }
-        numStudentsInfected[i] = infection_count;
+      }
+
+      if(approval_count == infections.length){
+        for(int i = 0; i < infections.length; i++){
+          int infection_count = 0;
+          System.out.println("so is it working?");
+          if (infections[i] == 1){
+            for (int j = 0; j < locations.length; j++){
+              if (locations[j] == locations[i] && infections[j] == 0){
+                infections[j] = 1;
+                infection_count++;
+              }
+
+              else{
+                continue;
+              }
+            }
+          }
+          else{
+            continue;
+          }
+          numStudentsInfected[i] = infection_count;
+        }
       }
     }
     return numStudentsInfected;
