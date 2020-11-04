@@ -52,8 +52,9 @@ public class InfectionTracking{
     && (locations.length == movements.length)){
       int approval_count = 0;
       for(int i = 0; i < worldSize; i++){
-        if((locations[i] < 0) || (locations[i] >= worldSize)){
-          break;
+        if((locations[i] < 0) || (locations[i] >= worldSize)
+          || movements[i] == 0){  
+            break;
         }
         else{
           approval_count++;
@@ -68,7 +69,7 @@ public class InfectionTracking{
         }
       }
     }
-    //System.out.println(Arrays.toString(locations));
+    System.out.println(Arrays.toString(locations));
   }
 
   public static int[] updateInfections(int worldSize, int[] infections,
@@ -136,20 +137,20 @@ public class InfectionTracking{
     movements, infections));
     */
 
-    /**
+    //**
     int worldSize = 4;
     int locations[] = {3, 2, 1, 0};
-    int movements[] = {2, -3, 1, -2};
+    int movements[] = {0, 0, 0, 0};
     updateLocations(worldSize, locations, movements);
-    /*/
+    //*/
 
-    //**
+    /**
     int worldSize = 6;
     int infections[] = {0, 0, 1, 1, 0, 0, 1, 0, 1};
     int locations[] = {2, 1, 4, 3, 3, 5, 1, 1, 3};
     System.out.println(Arrays.toString(updateInfections(worldSize,
     infections, locations)));
-    //*/
+    */
   }
 
 
