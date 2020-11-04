@@ -83,11 +83,9 @@ public class InfectionTracking{
       for(int i = 0; i < infections.length; i++){
         if((locations[i] < 0) || (locations[i] >= worldSize)
           || ((infections[i] != 0) && (infections[i] != 1))){
-            System.out.println("did we get here");
             break;
         }
         else{
-          System.out.println("what the heck");
           approval_count++;
         }
       }
@@ -95,11 +93,9 @@ public class InfectionTracking{
       if(approval_count == infections.length){
         for(int i = 0; i < infections.length; i++){
           int infection_count = 0;
-          System.out.println("so is it working?");
           if (infections[i] == 1){
             for (int j = 0; j < locations.length; j++){
               if (locations[j] == locations[i] && infections[j] == 0){
-                infections[j] = 1;
                 infection_count++;
               }
 
@@ -112,6 +108,16 @@ public class InfectionTracking{
             continue;
           }
           numStudentsInfected[i] = infection_count;
+        }
+        for(int m = 0; m < infections.length; m++){
+          int infection_count = 0;
+          if (infections[m] == 1){
+            for (int n = 0; n < locations.length; n++){
+              if (locations[n] == locations[m] && infections[n] == 0){
+                infections[n] = 1;
+              }
+            }
+          }
         }
       }
     }
@@ -137,20 +143,20 @@ public class InfectionTracking{
     movements, infections));
     */
 
-    //**
+    /**
     int worldSize = 15;
     int locations[] = {3, 2, 1, 0, 10, 12, 14, 9, 5};
     int movements[] = {1, -1, 5, 7, -14, 9, 10, -2, 14};
     updateLocations(worldSize, locations, movements);
     //*/
 
-    /**
+    //**
     int worldSize = 6;
     int infections[] = {0, 0, 1, 1, 0, 0, 1, 0, 1};
     int locations[] = {2, 1, 4, 3, 3, 5, 1, 1, 3};
     System.out.println(Arrays.toString(updateInfections(worldSize,
     infections, locations)));
-    */
+    //*/
   }
 
 
