@@ -63,7 +63,7 @@ public class InfectionTracking{
       if(approval_count == locations.length){
         for(int j = 0; j < locations.length; j++){
           locations[j] = (locations[j] + movements[j]) % worldSize;
-          if(locations[j] < 0){
+          if(locations[j] <= 0){
             locations[j] += worldSize;
           }
         }
@@ -128,12 +128,17 @@ public class InfectionTracking{
   }
 
 
-/**
+
   public static int[] countInfectionsByStudent(int days, int worldSize,
   int[] locations, int[] movements, int[] infections){
-
+    int [] infectionRecord = new int[infections.length];
+    for(int i = 0; i < days; i++){
+      updateLocations(worldSize, locations, movements);
+      infectionRecord = updateInfections(worldSize, infections, locations);
+    }
+    return infectionRecord;
   }
-*/
+
 
 
   public static void main(String[] args) throws IOException{
@@ -146,20 +151,30 @@ public class InfectionTracking{
     movements, infections));
     */
 
-    /**
+    //**
     int worldSize = 15;
     int locations[] = {3, 2, 1, 0, 10, 12, 14, 9, 5};
-    int movements[] = {1, -1, 5, 7, -14, 9, 10, -2, 14};
+    int movements[] = {-3, -1, 5, 7, -14, 9, 10, -2, 14};
     updateLocations(worldSize, locations, movements);
     //*/
 
-    //**
+    /**
     int worldSize = 6;
     int infections[] = {0, 0, 1, 1, 0, 0, 1, 0, 1};
     int locations[] = {2, 1, 4, 3, 3, 5, 1, 1, 3};
     System.out.println(Arrays.toString(updateInfections(worldSize,
     infections, locations)));
-    //*/
+    */
+
+    /**
+    int days = 3;
+    int worldSize = 10;
+    int locations[] = {3, 2, 1, 0, 5, 2, 9};
+    int movements[] = {2, -3, 1, -2, 3, 2, 5};
+    int infections[] = {0, 1, 0, 0, 0, 0, 1};
+    System.out.println(Arrays.toString(countInfectionsByStudent(days,
+    worldSize, locations, movements, infections)));
+    */
   }
 
 
