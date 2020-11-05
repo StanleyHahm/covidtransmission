@@ -63,7 +63,8 @@ public class InfectionTracking{
       if(approval_count == locations.length){
         for(int j = 0; j < locations.length; j++){
           if((locations[j] + movements[j]) < 0){
-            locations[j] = (locations[j] + movements[j]) + worldSize;
+            locations[j] = ((locations[j] + movements[j]) % worldSize)
+            + worldSize;
           }
           else{
             locations[j] = (locations[j] + movements[j]) % worldSize;
@@ -71,7 +72,7 @@ public class InfectionTracking{
         }
       }
     }
-    //System.out.println(Arrays.toString(locations));
+    System.out.println(Arrays.toString(locations));
   }
 
   public static int[] updateInfections(int worldSize, int[] infections,
@@ -238,12 +239,12 @@ public class InfectionTracking{
     movements, infections));
     */
 
-    /**
+    //**
     int worldSize = 15;
     int locations[] = {3, 2, 1, 0, 10, 12, 14, 9, 5};
     int movements[] = {-3, -9, 5, 7, -14, 9, 10, -2, 14};
     updateLocations(worldSize, locations, movements);
-    */
+    //*/
 
     /**
     int worldSize = 6;
@@ -268,11 +269,11 @@ public class InfectionTracking{
     System.out.println(findRNaught(infectionRecord));
     */
 
-    //**
+    /**
     int infectionRecord[] = {3, 4, 1, 0, 2, 4};
     String names[] = {"Isaac", "Kevin", "Mary", "Sally", "Miranda", "Bob"};
     System.out.println(findSuperSpreader(infectionRecord, names));
-    //*/
+    */
   }
 
 
