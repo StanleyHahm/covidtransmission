@@ -76,6 +76,10 @@ public class InfectionTracking{
 
   public static int[] updateInfections(int worldSize, int[] infections,
   int[] locations){
+    if(infections == null){
+      return null;
+    }
+
     int[] numStudentsInfected = new int[infections.length];
 
     if((worldSize > 0) && (locations != null) && (infections != null)
@@ -238,20 +242,20 @@ public class InfectionTracking{
     movements, infections));
     */
 
-    //**
+    /**
     int worldSize = 15;
     int locations[] = {3, 2, 1, 0, 10, 12, 14, 9, 5};
     int movements[] = {-3, -9, 5, 7, -14, 9, 10, -2, 14};
     updateLocations(worldSize, locations, movements);
-    //*/
+    */
 
-    /**
+    //**
     int worldSize = 6;
     int infections[] = {0, 0, 1, 1, 0, 0, 1, 0, 1};
     int locations[] = {2, 1, 4, 3, 3, 5, 1, 1, 3};
     System.out.println(Arrays.toString(updateInfections(worldSize,
     infections, locations)));
-    */
+    //*/
 
     /**
     int days = 3;
