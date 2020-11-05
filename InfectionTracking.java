@@ -52,8 +52,7 @@ public class InfectionTracking{
     && (locations.length == movements.length)){
       int approval_count = 0;
       for(int i = 0; i < locations.length; i++){
-        if((locations[i] < 0) || (locations[i] >= worldSize)
-          || movements[i] == 0){
+        if((locations[i] < 0) || (locations[i] >= worldSize)){
             break;
         }
         else{
