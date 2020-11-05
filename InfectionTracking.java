@@ -179,7 +179,7 @@ public class InfectionTracking{
           approval_count++;
         }
       }
-      if (approval_count == infectionRecord.length){
+      if(approval_count == infectionRecord.length){
         for(int j = 0; j < infectionRecord.length; j++){
           sum += infectionRecord[j];
         }
@@ -194,12 +194,39 @@ public class InfectionTracking{
     return RNaught;
   }
 
-/**
+
   public static String findSuperSpreader(int[] infectionRecord,
     String[] names){
+      int approval_count = 0;
+      int superSpreader_max = 0;
+      String superSpreader = null;
 
+      if((infectionRecord != null) && (names != null)
+        && (infectionRecord.length == names.length)
+        && (infectionRecord.length > 0)){
+          for(int i = 0; i < infectionRecord.length; i++){
+            if(infectionRecord[i] < 0){
+              return null;
+            }
+            else{
+              approval_count++;
+            }
+          if(approval_count == infectionRecord.length){
+            for(int j = 0; j < infectionRecord.length; j++){
+              if(infectionRecord[j] > superSpreader_max){
+                superSpreader_max = infectionRecord[j];
+                superSpreader = names[j];
+              }
+            }
+          }
+        }
+      }
+      else{
+        return null;
+      }
+      return superSpreader;
   }
-*/
+
 
   public static void main(String[] args) throws IOException{
     /**
@@ -236,9 +263,16 @@ public class InfectionTracking{
     worldSize, locations, movements, infections)));
     */
 
+    /**
     int infectionRecord[] = {2, 1, 0, 4, 7, 3, 1};
     System.out.println(findRNaught(infectionRecord));
+    */
 
+    //**
+    int infectionRecord[] = {3, 4, 1, 0, 2, 4};
+    String names[] = {"Isaac", "Kevin", "Mary", "Sally", "Miranda", "Bob"};
+    System.out.println(findSuperSpreader(infectionRecord, names));
+    //*/
   }
 
 
