@@ -62,14 +62,16 @@ public class InfectionTracking{
       }
       if(approval_count == locations.length){
         for(int j = 0; j < locations.length; j++){
-          locations[j] = (locations[j] + movements[j]) % worldSize;
-          if(locations[j] < 0){
-            locations[j] += worldSize;
+          if((locations[j] + movements[j]) < 0){
+            locations[j] = (locations[j] + movements[j]) + worldSize;
+          }
+          else{
+            locations[j] = (locations[j] + movements[j]) % worldSize;
           }
         }
       }
     }
-    System.out.println(Arrays.toString(locations));
+    //System.out.println(Arrays.toString(locations));
   }
 
   public static int[] updateInfections(int worldSize, int[] infections,
@@ -132,14 +134,72 @@ public class InfectionTracking{
   public static int[] countInfectionsByStudent(int days, int worldSize,
   int[] locations, int[] movements, int[] infections){
     int [] infectionRecord = new int[infections.length];
-    for(int i = 0; i < days; i++){
-      updateLocations(worldSize, locations, movements);
-      infectionRecord = updateInfections(worldSize, infections, locations);
-    }
+    int [] infectionRecord_holder = new int[infections.length];
+    int approval_count = 0;
+    if((worldSize > 0) && (days > 0) && (locations != null)
+      && (movements != null) && (infections != null)
+      && (locations.length == movements.length)
+      && (movements.length == infections.length)
+      && (infections.length == locations.length)){
+        for(int i = 0; i < locations.length; i++){
+          if((locations[i] < 0) || (locations[i] >= worldSize)
+            || ((infections[i] != 0) && (infections[i] != 1))){
+              break;
+          }
+          else{
+            approval_count++;
+          }
+        }
+      }
+      if(approval_count == locations.length){
+        for(int j = 0; j < days; j++){
+          updateLocations(worldSize, locations, movements);
+          infectionRecord_holder = updateInfections(worldSize, infections, locations);
+          for(int k = 0; k < infections.length; k++){
+            infectionRecord[k] += infectionRecord_holder[k];
+          }
+        }
+      }
     return infectionRecord;
   }
 
+  public static int findRNaught(int[] infectionRecord){
+    int RNaught = 0;
+    double RNaught_dbl = 0.0;
+    int approval_count = 0;
+    double sum = 0;
+    int numStudents = 0;
 
+    if((infectionRecord != null) && (infectionRecord.length > 0)){
+      for(int i = 0; i < infectionRecord.length; i++){
+        if(infectionRecord[i] < 0){
+          return -1;
+        }
+        else{
+          approval_count++;
+        }
+      }
+      if (approval_count == infectionRecord.length){
+        for(int j = 0; j < infectionRecord.length; j++){
+          sum += infectionRecord[j];
+        }
+        numStudents = infectionRecord.length;
+        RNaught_dbl = Math.ceil(sum/numStudents);
+        RNaught = (int)RNaught_dbl;
+      }
+    }
+    else{
+      return -1;
+    }
+    return RNaught;
+  }
+
+/**
+  public static String findSuperSpreader(int[] infectionRecord,
+    String[] names){
+
+  }
+*/
 
   public static void main(String[] args) throws IOException{
     /**
@@ -151,12 +211,12 @@ public class InfectionTracking{
     movements, infections));
     */
 
-    //**
+    /**
     int worldSize = 15;
     int locations[] = {3, 2, 1, 0, 10, 12, 14, 9, 5};
-    int movements[] = {-3, -1, 5, 7, -14, 9, 10, -2, 14};
+    int movements[] = {-3, -9, 5, 7, -14, 9, 10, -2, 14};
     updateLocations(worldSize, locations, movements);
-    //*/
+    */
 
     /**
     int worldSize = 6;
@@ -175,6 +235,10 @@ public class InfectionTracking{
     System.out.println(Arrays.toString(countInfectionsByStudent(days,
     worldSize, locations, movements, infections)));
     */
+
+    int infectionRecord[] = {2, 1, 0, 4, 7, 3, 1};
+    System.out.println(findRNaught(infectionRecord));
+
   }
 
 
